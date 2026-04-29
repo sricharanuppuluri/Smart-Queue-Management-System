@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Queue Management System</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="glass-panel">
+            <div class="header-left">
+                <div class="logo">
+                    <i class="fa-solid fa-users-viewfinder"></i>
+                    <h1>Q-Sync</h1>
+                </div>
+                <div class="stats">
+                    <div class="stat-badge">
+                        <i class="fa-solid fa-users"></i>
+                        <span id="total-customers">Total Today: 0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="clock-display" id="live-clock">
+                    --:-- --
+                </div>
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Top Banner: Notifications -->
+        <div class="notifications-banner">
+            <div class="notification-card now-serving glass-panel pulse">
+                <div class="notif-icon"><i class="fa-solid fa-bell"></i></div>
+                <div class="notif-content">
+                    <p class="notif-label">Now Serving</p>
+                    <h2 id="now-serving-token">--</h2>
+                    <p id="now-serving-name" class="notif-subtext">Waiting for customers...</p>
+                </div>
+            </div>
+            <div class="notification-card next-serving glass-panel">
+                <div class="notif-icon"><i class="fa-solid fa-forward-step"></i></div>
+                <div class="notif-content">
+                    <p class="notif-label">Next Up</p>
+                    <h3 id="next-serving-token">--</h3>
+                    <p id="next-serving-name" class="notif-subtext">--</p>
+                </div>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <!-- Left Panel: Controls -->
+            <aside class="control-panel glass-panel">
+                <div class="panel-section">
+                    <h2><i class="fa-solid fa-user-plus"></i> Add Customer</h2>
+                    <form id="add-customer-form">
+                        <div class="input-group">
+                            <input type="text" id="customer-name" placeholder="Enter Customer Name" required autocomplete="off">
+                        </div>
+                        <div class="checkbox-group">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" id="customer-priority">
+                                <span class="checkmark"></span>
+                                Priority (Emergency / VIP)
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>Generate Token</span>
+                            <i class="fa-solid fa-ticket"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="panel-section">
+                    <h2><i class="fa-solid fa-magnifying-glass"></i> Search & Filter</h2>
+                    <div class="input-group search-group">
+                        <i class="fa-solid fa-search search-icon"></i>
+                        <input type="text" id="search-input" placeholder="Search Name or Token...">
+                    </div>
+                    <div class="filter-tabs">
+                        <button class="filter-btn active" data-filter="waiting">Waiting</button>
+                        <button class="filter-btn" data-filter="served">Served</button>
+                        <button class="filter-btn" data-filter="all">All</button>
+                    </div>
+                </div>
+
+                <div class="panel-section action-section">
+                    <button id="serve-next-btn" class="btn btn-accent btn-large">
+                        <span>Serve Next</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Right Panel: Queue List -->
+            <section class="queue-panel glass-panel">
+                <div class="queue-header">
+                    <h2>Live Queue</h2>
+                    <div class="queue-meta">
+                        <span id="est-wait-time"><i class="fa-regular fa-clock"></i> Est. Wait: 0 mins</span>
+                    </div>
+                </div>
+                
+                <div class="queue-list-container">
+                    <div class="queue-list" id="queue-list">
+                        <!-- Queue items will be injected here by JS -->
+                        <div class="empty-state">
+                            <i class="fa-regular fa-folder-open"></i>
+                            <p>The queue is currently empty.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
